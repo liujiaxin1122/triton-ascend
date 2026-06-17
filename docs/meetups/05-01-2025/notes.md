@@ -1,17 +1,20 @@
-# Agenda:
+# Agenda
+
 1. What are the plans for existing block pointer programming model? (Context: Intel GPU backend relies heavily on it and will need time to fully move to tensor descriptor programming model) - Jianhui Li (Intel)
 2. Infrastructure for Triton performance tests - Sayce Falk (Google)
 3. What talks/tutorials/open discussions would you like to see at the 2025 Triton Developers' Summit? How can we help? Adnan Aziz (Meta)
 
-# Notes:
+# Notes
 
 ## What are the plans for existing block pointer programming model? (Context: Intel GPU backend relies heavily on it an will need time to fully move to tensor descriptor programming model)
+
 Speakers: Jianhui Li (Intel), Keren Zhou (George Mason Univ)
 
 * Glad to see Triton moving toward generic tensor descriptor vs vendor-specific TMA.
 * Intel is still relying on older block pointer programming model. Will take some time to migrate to new tensor descriptor model
 
 ### Questions
+
 * Q> What is timeline for deprecation of block pointer?
 * Q> Looked at code examples. Two flavors of tensor descriptor. We'd prefer keeping one: **CreateTensorDescriptorFromHost** Why are there two flavors?  Why not just keep the device side one?
 * A> You want to know why we have one device side and one host side.
@@ -39,6 +42,7 @@ Speakers: Jianhui Li (Intel), Keren Zhou (George Mason Univ)
 * Q> Need a grace period.
 
 ## Infrastructure for Triton performance tests
+
 Speaker: Sayce Falk (Google), Cicie Wang (Meta), Jason Knight (Nvidia), Keren Zhou (George Mason University), Areg Melik-Adamyan (Intel)
 
 * Q> Any near term plans for setting up public benchmarks for Nvidia's newest hardware? Maybe through PyTorch or TorchBench.
@@ -72,9 +76,10 @@ Speaker: Sayce Falk (Google), Cicie Wang (Meta), Jason Knight (Nvidia), Keren Zh
 * Q> Anyone interested in this?
 * A> Maybe first step, identify how much generated code is affected by a pull request (give a signal to say something about the blast radius of a change).
 * Q> Intel had an intern looking at this.
-* Q> Intel<Alexander> - if you're interested reach out over slack.
+* Q> Intel(Alexander) - if you're interested reach out over slack.
 
 ## What talks/tutorials/open discussions would you like to see at the 2025 Triton Developers' Summit? How can we help?
+
 Speaker: Adnan Aziz (Meta)
 
 * Phil, Elena Mithra & Adnan Aziz pulled together last year's Triton Developers' Summit.
@@ -93,5 +98,6 @@ Speaker: Adnan Aziz (Meta)
 * Triton summit will try to colocate with PyTorch conference.  Probably at the Mosconi Center in SF (but still needs to be verified from Microsoft).
 * What is Microsoft's timeline/plans?
 
-##### Minutes:
+### Minutes
+
 Recording link [here](https://youtu.be/W16BrXc5BYE)
