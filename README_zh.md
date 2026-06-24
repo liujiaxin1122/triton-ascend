@@ -5,7 +5,7 @@
 </p>
 
 <h3 align="center">
-Triton-Ascend 
+Triton-Ascend
 </h3>
 
 <p align="center">
