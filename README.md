@@ -9,6 +9,10 @@ Triton-Ascend
 </h3>
 
 <p align="center">
+<a href="README.md"><b>English</b></a> | <a href="README_zh.md"><b>中文</b></a>
+</p>
+
+<p align="center">
 | <a href="https://triton-ascend.readthedocs.io/en/latest/"><b>Official Documentation</b></a> | <a href="https://www.hiascend.com/developer/operator?tag=triton"><b>Operator Development User Journey</b></a> | <a href="https://etherpad-ascend.meeting.osinfra.cn/p/sig-AscendNPU-IR"><b>Community Meeting</b></a> | <a href="https://www.hiascend.com/"><b>About Ascend</b></a> |
 </p>
 
