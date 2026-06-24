@@ -9,6 +9,10 @@ Triton-Ascend
 </h3>
 
 <p align="center">
+<a href="README.md"><b>English</b></a> | <a><b>中文</b></a>
+</p>
+
+<p align="center">
 | <a href="https://triton-ascend.readthedocs.io/zh-cn/latest/"><b>官方文档</b></a> | <a href="https://www.hiascend.com/developer/operator?tag=triton"><b>算子开发用户旅程</b></a> | <a href="https://etherpad-ascend.meeting.osinfra.cn/p/sig-AscendNPU-IR"><b>社区例会</b></a> | <a href="https://www.hiascend.com/"><b>关于昇腾</b></a> |
 </p>
 
