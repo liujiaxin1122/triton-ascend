@@ -138,8 +138,6 @@ Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编
 
 我们重视开发者在使用Triton-Ascend时的信息安全，安全防护建议与相关信息请见 [安全声明](./docs/zh/community/SECURITYNOTE_zh.md)
 
-- 步骤3：执行以下命令进行构建和安装LLVM：
-
   ```bash
   cd {PATH_TO}/llvm_project # 路径为用户拉取LLVM代码的路径,需根据实际调整
   mkdir build
