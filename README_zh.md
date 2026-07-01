@@ -255,6 +255,5 @@ docker exec -u root -it triton-ascend_container /bin/bash
 
 ## 🤝 社区与贡献
 
-欢迎参与Triton-Ascend的开发及代码贡献，详情请参阅[贡献指南](./CONTRIBUTING_zh.md)。
-
 - 请通过[Issue](https://github.com/triton-lang/triton-ascend/issues)来告知我们您遇到的任何Bug。
+- 欢迎参与Triton-Ascend的开发及代码贡献，详情请参阅 [贡献指南](./docs/zh/community/CONTRIBUTING_zh.md)
