@@ -95,9 +95,15 @@ pip install triton-ascend==3.2.1 --extra-index-url=https://mirrors.huaweicloud.c
 pip install triton-ascend==3.2.0
 ```
 
-## 基于源码安装
+## 源码编译安装
 
-### 快速安装
+### 在线安装
+
+<div style="margin-left:1em">
+<details>
+<summary>更多在线安装</summary>
+
+#### 在线安装
 
 ```bash
 git clone https://github.com/triton-lang/triton-ascend.git
@@ -108,14 +114,20 @@ git checkout main
 pip install -e .
 ```
 
-## 基于LLVM构建
+</details>
+</div>
 
-Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编译器也依赖 LLVM 生成 NPU 代码，因此需要编译 LLVM 源码才能使用。请关注依赖的 LLVM 特定版本。LLVM的构建支持两种构建方式，**以下两种方式二选一即可**，无需重复执行。
+### 离线安装-基于LLVM构建
+
 <div style="margin-left:1em">
 <details>
-<summary>更多基于LLVM构建</summary>
+<summary>更多离线安装</summary>
 
-### 代码准备: `git checkout` 检出指定版本的LLVM
+#### 基于LLVM构建
+
+Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编译器也依赖 LLVM 生成 NPU 代码，因此需要编译 LLVM 源码才能使用。请关注依赖的 LLVM 特定版本。LLVM的构建支持两种构建方式，**以下两种方式二选一即可**，无需重复执行。
+
+#### 代码准备: `git checkout` 检出指定版本的LLVM
 
    ```bash
    git clone --no-checkout https://github.com/llvm/llvm-project.git
@@ -125,7 +137,7 @@ Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编
    git apply fad3272.patch
    ```
 
-### clang构建安装LLVM
+#### clang构建安装LLVM
 
 - 步骤1：使用clang安装LLVM，环境上请安装clang、lld，并指定版本（推荐版本clang>=15，lld>=15），
   如未安装，请按下面指令安装clang、lld、ccache：
@@ -136,7 +148,12 @@ Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编
 
 - 步骤2：设置环境变量 LLVM_INSTALL_PREFIX 为您的目标安装路径：
 
-我们重视开发者在使用Triton-Ascend时的信息安全，安全防护建议与相关信息请见 [安全声明](./docs/zh/community/SECURITYNOTE_zh.md)
+   ```bash
+    # 路径为用户规划的llvm安装路径,需根据实际调整
+    export LLVM_INSTALL_PREFIX=/path/to/llvm-install
+    ```
+
+- 步骤3：执行以下命令进行构建和安装 LLVM：
 
   ```bash
   cd {PATH_TO}/llvm_project # 路径为用户拉取LLVM代码的路径,需根据实际调整
@@ -162,42 +179,36 @@ Triton 使用 LLVM 22 为 GPU 和 CPU 生成代码。同样，昇腾的毕昇编
    cp  {PATH_TO}/llvm_project/build/bin/FileCheck ${LLVM_INSTALL_PREFIX}/bin/FileCheck
    ```
 
-### 克隆 Triton-Ascend
+#### 克隆 Triton-Ascend
 
 ```bash
 git clone https://gitcode.com/Ascend/triton-ascend.git && cd triton-ascend
 ```
 
-### 构建 Triton-Ascend
+#### 构建 Triton-Ascend
 
-- 步骤1：请确认已设置 [基于LLVM构建] 章节中，LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
-- 步骤2：请确认已安装clang>=15，lld>=15，ccache
+- 步骤1：克隆 Triton-Ascend
 
-   ```bash
-   LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
-   TRITON_BUILD_WITH_CCACHE=true \
-   TRITON_BUILD_WITH_CLANG_LLD=true \
-   TRITON_BUILD_PROTON=OFF \
-   TRITON_WHEEL_NAME="triton-ascend" \
-   TRITON_APPEND_CMAKE_ARGS="-DTRITON_BUILD_UT=OFF" \
-   python3 setup.py install
-   ```
+    ```bash
+    git clone https://github.com/triton-lang/triton-ascend.git && cd triton-ascend
+    ```
 
-注1：推荐GCC版本见前段章节“系统推荐”，如果GCC < 9.4.0，可能报错“ld.lld: error: unable to find library -lstdc++fs”，说明链接器无法找到 stdc++fs 库。
-该库用于支持 GCC 9 之前版本的文件系统特性。此时需要手动把 CMake 文件中相关代码片段的注释打开：
+- 步骤2：编译安装 Triton-Ascend
 
-triton-ascend/CMakeLists.txt
+    ```bash
+    # 确认已设置 [基于LLVM构建] 章节中，LLVM安装的目标路径 ${LLVM_INSTALL_PREFIX}
+    # 确认已安装clang>=15，lld>=15，ccache
 
-   ```bash
-   if (NOT WIN32 AND NOT APPLE)
-   link_libraries(stdc++fs)
-   endif()
-   ```
+    LLVM_SYSPATH=${LLVM_INSTALL_PREFIX} \
+    TRITON_BUILD_WITH_CCACHE=true \
+    TRITON_BUILD_WITH_CLANG_LLD=true \
+    TRITON_BUILD_PROTON=OFF \
+    TRITON_WHEEL_NAME="triton-ascend" \
+    TRITON_APPEND_CMAKE_ARGS="-DTRITON_BUILD_UT=OFF" \
+    python3 setup.py install
+    ```
 
-  取消注释后重新构建项目即可解决该问题。
-<a id="docker-build"></a>
-
-## 基于Dockerfile安装
+### 镜像包安装
 
 - 我们提供了Dockerfile帮助您安装Docker环境镜像。构建过程使用`quay.io/ascend/cann`预构建镜像作为基础镜像，跳过CANN安装步骤，显著加快构建速度。
 
@@ -244,6 +255,28 @@ docker exec -u root -it triton-ascend_container /bin/bash
 </details>
 </div>
 
+## ✏️文档入口
+
+- [快速开始](./docs/zh/quick_start.md)
+
+- [在线完整文档（推荐）](https://triton-ascend.readthedocs.io/zh-cn/latest/index.html)
+
+- [安装指南](./docs/zh/installation_guide.md)
+
+- [架构设计与核心特性](./docs/zh/architecture_design_and_core_features.md)
+
+- [算子开发指南](./docs/zh/programming_guide/index.md)
+
+- [算子迁移指南](./docs/zh/migration_guide/migrate_from_gpu.md)
+
+- [算子调试指南](./docs/zh/debug_guide/debugging.md#)
+
+- [性能调优指南](./docs/zh/debug_guide/profiling.md#)
+
+- [环境变量参考](./docs/zh/environment_variable_and_compiler_options_reference.md)
+
+- [常见问题FAQ](./docs/zh/FAQ.md)
+
 ## 🏘️ 社区活动信息
 
 1. [会议日历](https://meeting.osinfra.cn/ascend)
@@ -251,5 +284,6 @@ docker exec -u root -it triton-ascend_container /bin/bash
 
 ## 🤝 社区与贡献
 
-- 请通过[Issue](https://github.com/triton-lang/triton-ascend/issues)来告知我们您遇到的任何Bug。
 - 欢迎参与Triton-Ascend的开发及代码贡献，详情请参阅 [贡献指南](./docs/zh/community/CONTRIBUTING_zh.md)
+
+- 请通过[Issue](https://github.com/triton-lang/triton-ascend/issues)来告知我们您遇到的任何Bug。
