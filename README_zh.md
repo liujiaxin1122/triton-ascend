@@ -185,7 +185,7 @@ git clone https://gitcode.com/Ascend/triton-ascend.git && cd triton-ascend
    python3 setup.py install
    ```
 
-注1：推荐GCC版本见前段章节“系统推荐”，如果GCC < 9.4.0，可能报错 “ld.lld: error: unable to find library -lstdc++fs”，说明链接器无法找到 stdc++fs 库。
+注1：推荐GCC版本见前段章节“系统推荐”，如果GCC < 9.4.0，可能报错“ld.lld: error: unable to find library -lstdc++fs”，说明链接器无法找到 stdc++fs 库。
 该库用于支持 GCC 9 之前版本的文件系统特性。此时需要手动把 CMake 文件中相关代码片段的注释打开：
 
 triton-ascend/CMakeLists.txt
